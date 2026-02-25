@@ -1,0 +1,16 @@
+SELECT ?battle ?battleLabel ?date ?place ?placeLabel ?coordinates ?country ?countryLabel ?troops
+WHERE {
+  ?battle wdt:P31 wd:Q178561 ;  # Битва
+          rdfs:label ?battleLabel ;
+          wdt:P585 ?date ;        # Дата битвы
+          wdt:P276 ?place ;      # Место битвы
+          wdt:P625 ?coordinates . # Координаты битвы
+  ?place rdfs:label ?placeLabel .
+  ?participant ps:P710 ?country .
+  ?battle p:P710 ?participant . # Страны-участники
+  ?country rdfs:label ?countryLabel .
+  FILTER(LANG(?battleLabel) = "ru")
+  FILTER(LANG(?placeLabel) = "ru")
+  FILTER(LANG(?countryLabel) = "ru")
+}
+ORDER BY DESC(?date)
